@@ -1,31 +1,69 @@
 const questions = [
   {
-    question: "Which is the largest animal in the world?",
-    answers: [
-      { text: "Shark", correct: false },
-      { text: "Blue whale", correct: true },
-      { text: "Elephant", correct: false },
-      { text: "Giraffe", correct: false }
-      ],
-      explanation: "The blue whale is the largest animal in the world, growing up to 100 feet (30 meters) sns."
-    
+    "question": "What is the structure that carries genetic information within a cell?",
+    "options": {
+      "A": "Ribosome",
+      "B": "Chromosome",
+      "C": "Lysosome",
+      "D": "Mitochondria"
+    },
+    "correct_answer": "B",
+    "explanation": "Chromosomes are structures composed of DNA and proteins, carrying the genetic information of an organism."
   },
   {
-    question: "Which is the largest animal in the world?",
-    answers: [
-      { text: "Shark", correct: false },
-      { text: "Blue whale", correct: true },
-      { text: "Elephant", correct: false },
-      { text: "Giraffe", correct: false }
-      ],
-      explanation: "Paris is the capital of France, known for its iconic landmarks such as the Eiffel Tower and Notre-Dame Cathedral."
-    
+    "question": "Which of the following nitrogenous bases is NOT found in DNA?",
+    "options": {
+      "A": "Adenine",
+      "B": "Thymine",
+      "C": "Uracil",
+      "D": "Cytosine"
+    },
+    "correct_answer": "C",
+    "explanation": "Uracil is found in RNA, while DNA contains adenine, thymine, guanine, and cytosine as its nitrogenous bases."
+  },
+  {
+    "question": "Which enzyme is responsible for joining Okazaki fragments during DNA replication?",
+    "options": {
+      "A": "Helicase",
+      "B": "Primase",
+      "C": "DNA polymerase",
+      "D": "Ligase"
+    },
+    "correct_answer": "D",
+    "explanation": "Ligase is the enzyme responsible for sealing the nicks between the Okazaki fragments, completing the synthesis of the lagging strand during DNA replication."
+  },
+  {
+    "question": "What is the process by which genetic information from DNA is converted into RNA?",
+    "options": {
+      "A": "Replication",
+      "B": "Translation",
+      "C": "Transcription",
+      "D": "Transformation"
+    },
+    "correct_answer": "C",
+    "explanation": "Transcription is the process by which RNA is synthesized from a DNA template, producing messenger RNA (mRNA), transfer RNA (tRNA), or ribosomal RNA (rRNA)."
+  },
+  {
+    "question": "Which of the following is responsible for bringing the amino acids to the ribosome during protein synthesis?",
+    "options": {
+      "A": "tRNA",
+      "B": "mRNA",
+      "C": "rRNA",
+      "D": "DNA polymerase"
+    },
+    "correct_answer": "A",
+    "explanation": "Transfer RNA (tRNA) is responsible for carrying the amino acids to the ribosome, where they are incorporated into the growing polypeptide chain during protein synthesis."
   }
 ];
 
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
+const previousButton = document.getElementById("previous-btn");
+const explainButton = document.getElementById("explain-btn");
+const popupContainer = document.getElementById("popup-container");
+const explanationText = document.getElementById("explanation-text");
+const closeButton = document.querySelector(".close");
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -42,16 +80,19 @@ function showQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   const questionNo = currentQuestionIndex + 1;
   questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
-  currentQuestion.answers.forEach(answer => {
+  
+  // Display options
+  Object.keys(currentQuestion.options).forEach(optionKey => {
     const button = document.createElement("button");
-    button.innerHTML = answer.text;
+    button.innerHTML = currentQuestion.options[optionKey];
     button.classList.add("btn");
     answerButtons.appendChild(button);
-    if (answer.correct) {
-      button.dataset.correct = answer.correct; // Fixed: '=' to '+='
+    if (optionKey === currentQuestion.correct_answer) {
+      button.dataset.correct = "true";
     }
     button.addEventListener("click", selectAnswer);
   });
+
 }
 
 function resetState() {
@@ -81,11 +122,11 @@ function selectAnswer(e) {
 
 function showScore() {
   resetState();
-  questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`; // Fixed: Backticks for template literals
-  nextButton.innerHTML = "Play Again";
+  questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+  nextButton.innerHTML = "Restart";
   nextButton.style.display = "block";
-  explainButton.style.display = "none"; // Hide the explanation button
-  previousButton.style.display = "none"; // Hide the previous button
+  explainButton.style.display = "none";
+  previousButton.style.display = "none";
 }
 
 function handleNextButton() {
@@ -104,7 +145,6 @@ nextButton.addEventListener("click", () => {
     startQuiz();
   }
 });
-const previousButton = document.getElementById("previous-btn");
 
 previousButton.addEventListener("click", () => {
   if (currentQuestionIndex > 0) {
@@ -112,10 +152,6 @@ previousButton.addEventListener("click", () => {
     showQuestion();
   }
 });
-const explainButton = document.getElementById("explain-btn");
-const popupContainer = document.getElementById("popup-container");
-const explanationText = document.getElementById("explanation-text");
-const closeButton = document.querySelector(".close");
 
 explainButton.addEventListener("click", () => {
   const currentQuestion = questions[currentQuestionIndex];
