@@ -124,7 +124,7 @@ function showScore() {
   resetState();
   const accuracy = (score / questions.length) * 100;
   const formattedAccuracy = accuracy.toFixed(2); // Round accuracy to two decimal places
-  questionElement.innerHTML = `You scored ${score} out of ${questions.length} (${formattedAccuracy}% accuracy)!`;
+  questionElement.innerHTML = `Your score = ${score} out of ${questions.length} (Accuracy = ${formattedAccuracy}% )!`;
   nextButton.innerHTML = "Restart";
   nextButton.style.display = "block";
   explainButton.style.display = "none";
