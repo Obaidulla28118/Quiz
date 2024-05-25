@@ -122,7 +122,9 @@ function selectAnswer(e) {
 
 function showScore() {
   resetState();
-  questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+  const accuracy = (score / questions.length) * 100;
+  const formattedAccuracy = accuracy.toFixed(2); // Round accuracy to two decimal places
+  questionElement.innerHTML = `You scored ${score} out of ${questions.length} (${formattedAccuracy}% accuracy)!`;
   nextButton.innerHTML = "Restart";
   nextButton.style.display = "block";
   explainButton.style.display = "none";
