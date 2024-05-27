@@ -87,12 +87,28 @@ transition: all 0.3s
     cursor: pointer;
     display: block;
 }
-.correct{
-  background-color:green;
+#timer { 
+   background-color: #e1f5fe;
+   width:80px;
+   border-radius: 6px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px 1px;
+   position: absolute;
+   top: 120px;
+   right: 40px; 
+ }
+.incorrect {
+  background-color: #ffdde0;
+  color: #d32f2f;
+  border-color: #d32f2f;
 }
-.incorrect{
-  background-color: #ea6568;
-}
+.correct {
+  background-color: #e7f6d5;
+  color: #689f38;
+  border-color: #689f38;
+  }
 .popup-container {
   display: none;
   position: fixed;
