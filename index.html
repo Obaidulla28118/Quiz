@@ -10,8 +10,16 @@
   <div class="app">
     <h1>💥 NEET Cafe Quiz 💥</h1>
      <div class="quiz">
-          <div id="timer">15s</div>
+     <div id="timer-container">
+  <div id="timer"></div>
+</div>
+
+       <div class="progress-bar">
+    <span class="progress"></span>  <span class="total"></span> 
+</div>
+       
        <h2 id="question">Question goes here</h2>
+       
        <div id="answer-buttons">
           <button class="btn">Answer 1</button>
           <button class="btn">Answer 2</button>
@@ -25,10 +33,15 @@
   <div class="popup-content">
     <span class="close">&times;</span>
     <p id="explanation-text"></p>
+<button id="show-answers-btn" class="btn control-btn" style="display: none;">Show Answers</button>
+<ul class="ans-list"></ul>
+
   </div>
+
+
 </div>
      </div>
   </div>
   <script src="script.js"></script>
 </body>
-      </html>
+    </html>
