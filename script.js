@@ -1,6 +1,6 @@
 const questions = [
   {
-    question: "Which organelle is known as the powerhouse of the cell?",
+    question: "Which organelle is known as the powerhouse of the cell ?",
     options: {
       A: "Ribosome",
       B: "Chloroplast",
@@ -8,7 +8,7 @@ const questions = [
       D: "Mitochondria",
     },
     correct_answer: "D",
-    explanation: "Mitochondria generate most of the cell's ATP, making them the powerhouse of the cell.",
+    explanation: "NCERT Says »» Mitochondria generate most of the cell's ATP, making them the powerhouse of the cell.",
   },
   {
     question: "Which of the following is not a function of the human skeleton?",
@@ -19,7 +19,7 @@ const questions = [
       D: "Production of blood cells",
     },
     correct_answer: "C",
-    explanation: "The human skeleton doesn't directly participate in nutrient transportation.",
+    explanation: "NCERT Says »» The human skeleton doesn't directly participate in nutrient transportation.",
   },
   {
     question: "What is the primary function of the circulatory system?",
@@ -30,7 +30,7 @@ const questions = [
       D: "Excretion",
     },
     correct_answer: "C",
-    explanation: "The circulatory system primarily transports oxygen, nutrients, hormones, and waste products.",
+    explanation: "NCERT Says »» The circulatory system primarily transports oxygen, nutrients, hormones, and waste products.",
   },
   {
     question: "Which of the following is responsible for the sense of smell in humans?",
@@ -41,7 +41,7 @@ const questions = [
       D: "Tongue",
     },
     correct_answer: "C",
-    explanation: "The olfactory epithelium contains receptors for detecting odors and transmitting signals to the brain.",
+    explanation: "NCERT Says »» The olfactory epithelium contains receptors for detecting odors and transmitting signals to the brain.",
   },
   {
     question: "What is the main function of the nephrons in the kidneys?",
@@ -52,7 +52,7 @@ const questions = [
       D: "Digestion of proteins",
     },
     correct_answer: "B",
-    explanation: "Nephrons filter blood, remove waste, and regulate electrolyte balance and fluid levels.",
+    explanation: "NCERT Says »» Nephrons filter blood, remove waste, and regulate electrolyte balance and fluid levels.",
   },
 ];
 
@@ -61,7 +61,7 @@ let score = 0;
 let timer;
 let timeLeft;
 let selectedAnswers = {};
-let remainingTimes = Array(questions.length).fill(15);
+let remainingTimes = Array(questions.length).fill(30);
 let questionAnswered = Array(questions.length).fill(false);
 
 const questionElement = document.getElementById("question");
@@ -77,6 +77,7 @@ const timerDisplay = document.getElementById("timer");
 const progressBar = document.querySelector('.progress-bar');
 const currentQuestionCount = document.querySelector('.progress');
 const totalQuestions = questions.length;
+const thankButton = document.querySelector(".thank-btn")
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
@@ -85,7 +86,7 @@ function startQuiz() {
   explainButton.style.display = "block";
   previousButton.style.display = "block";
   selectedAnswers = {};
-  remainingTimes = Array(questions.length).fill(15);
+  remainingTimes = Array(questions.length).fill(30);
   questionAnswered = Array(questions.length).fill(false);
   showQuestion();
   updateProgress();
@@ -136,7 +137,7 @@ function startTimer() {
 
 function updateTimerDisplay() {
   timerDisplay.innerHTML = `⏰ ${timeLeft} s Left`;
-  timerDisplay.style.width = `${timeLeft * 100 / 15}%`;
+  timerDisplay.style.width = `${timeLeft * 100 / 30}%`;
 }
 
 function stopTimer() {
@@ -147,11 +148,17 @@ function navigateToPreviousQuestion() {
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--;
     showQuestion();
+    nextButton.style.display='block'
+    explainButton.style.display='block'
+    thankButton.style.display='none'
+    previousButton.innerHTML='Previous'
+    previousButton.style.border='0.5px solid darkgreen'
+    
   }
 }
 
 function onAnswerClicked() {
-  if (remainingTimes[currentQuestionIndex] < 15) {
+  if (remainingTimes[currentQuestionIndex] < 30) {
     questionAnswered[currentQuestionIndex] = true;
     stopTimer();
   }
@@ -231,13 +238,13 @@ function showScore() {
   const accuracy = (score / questions.length) * 100;
   const formattedAccuracy = accuracy.toFixed(2);
   questionElement.innerHTML = `Total ✅ = ${score} out of ${questions.length} Accuracy = ${formattedAccuracy}% !`;
-  
-  nextButton.style.display = "block";
-  explainButton.style.display = "none";
-  previousButton.innerHTML="Review"
-  previousButton.style.display = "block";
-  progressBar.style.display = "block";
-  timerContainer.style.display = "none";
+  nextButton.style.display='none'
+  explainButton.style.display='none'
+  thankButton.style.display='block'
+  previousButton.innerHTML='Review'
+  previousButton.style.backgroundColor=' #e7f6d5'
+  previousButton.style.border='1px solid red'
+  previousButton.style.color='darkgreen'
   
 }
 
@@ -245,17 +252,21 @@ function handleNextButton() {
   currentQuestionIndex++;
   if (currentQuestionIndex < questions.length) {
     showQuestion();
-  } else {
+  } 
+  else {
     showScore();
+    
   }
 }
 
 nextButton.addEventListener("click", () => {
-  if (currentQuestionIndex < questions.length) {
+  if(currentQuestionIndex < questions.length) {
     handleNextButton();
-  } else {
-    startQuiz();
   }
+  else {
+    startQuiz()
+  }
+  
 });
 
 previousButton.addEventListener("click", navigateToPreviousQuestion);
@@ -282,3 +293,4 @@ function updateProgress() {
 }
 
 startQuiz();
+
